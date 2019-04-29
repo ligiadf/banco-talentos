@@ -1,4 +1,4 @@
-# Banco talentos
+# Banco de talentos
 
 Página para exibir banco de talentos (em vez de currículos) de uma associação de classe (desenvolvido para a Associação Rio-grandense de Bibliotecários – ARB).
 
@@ -24,9 +24,13 @@ Busca / filtro por método GET.
 
 Utiliza cards do Bootstrap e ícones do FontAwesome.
 
-Tema: Business Frontpage de por Start Bootstrap: https://startbootstrap.com/templates/business-frontpage/
+Tema: Business Frontpage de Start Bootstrap: https://startbootstrap.com/templates/business-frontpage/
 
 Fluxo:
 - Criar planilha em Excel / Google Drive
 - Transformar em JSON: www.convertcsv.com/csv-to-json.htm
 - Atualizar data.json
+
+# Licença
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
