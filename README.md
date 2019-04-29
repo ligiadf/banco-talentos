@@ -26,7 +26,9 @@ Utiliza cards do Bootstrap e ícones do FontAwesome.
 
 Tema: Business Frontpage de Start Bootstrap: https://startbootstrap.com/templates/business-frontpage/
 
-Fluxo:
+Com ajuda de @taniarascia: https://www.taniarascia.com/how-to-use-json-data-with-php-or-javascript/
+
+## Fluxo:
 - Criar planilha em Excel / Google Drive
 - Transformar em JSON: www.convertcsv.com/csv-to-json.htm
 - Atualizar data.json
