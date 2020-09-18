@@ -2,7 +2,7 @@
 
 Página para exibir banco de talentos (em vez de currículos) de uma associação de classe (desenvolvido para a Associação Rio-grandense de Bibliotecários – ARB).
 
-Apenas os associados em dia possuem este benefício, então a exibição é validada pelo campo "associado", mostrando apenas os que tem "Sim" (linha 120).
+Apenas os associados em dia possuem este benefício, e por um tempo pré-definido.
 
 Exibe lista de pessoas cadastradas a partir de JSON, com os campos:
 - Declaro ter lido e estar de acordo com os termos e condições de uso do Banco de Talentos
