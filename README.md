@@ -21,7 +21,8 @@ Exibe lista de pessoas cadastradas a partir de JSON, com os campos:
 - Site
 - Blog
 - Habilidades
-- Associado em dia?
+- Exibir
+- Vencimento
 
 Busca / filtro por método GET.
 
@@ -37,6 +38,11 @@ Com ajuda de @taniarascia: https://www.taniarascia.com/how-to-use-json-data-with
 - Atualizar data.json
 
 ## Changelog
+
+### 18/09/2020 - Novos critérios exibição
+
+- Alterar nome do campo "Associado em dia" para "Exibir"
+- Colocar data de vencimento e mostrar só os com data igual ou superior à data atual (epoch time)
 
 ### 17/09/2020 21h30 - Ajuste retroativo
 

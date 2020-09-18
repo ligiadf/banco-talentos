@@ -114,10 +114,22 @@
 		$habilidade = $pessoa->{'Habilidades'};
 		$habilidade = explode(", ", $habilidade); // valores para array = lista no card
 		$habilidades = implode(", ", $habilidade); // valores para string = filtro
-	?>
 
+
+		// Data atual em EPOCH
+		$dt_atual = time();
+
+		// Transformar data de DD/MM/AAAA para MM/DD/AAAA
+		$dt_vence_DD = substr($pessoa->{'Vencimento'},0,2);
+		$dt_vence_MM = substr($pessoa->{'Vencimento'},3,2);
+		$dt_vence_AAAA = substr($pessoa->{'Vencimento'},6,4);
+
+		// Junta no novo formato e transforma em EPOCH
+		$dt_vence = strtotime($dt_vence_MM."/".$dt_vence_DD."/".$dt_vence_AAAA);
+
+?>
 	<?php 
-	if ( stripos($habilidades, $filtro) !== FALSE && $pessoa->{'Associado em dia?'} == 'Sim' || $pessoa->{'Associado em dia?'} == 'sim' && $pessoa->{'Declaro ter lido e estar de acordo com os termos e condições de uso do Banco de Talentos da ARB.'} == 'Sim' ) : ?>
+	if ( stripos($habilidades, $filtro) !== FALSE && $pessoa->{'Exibir'} == 'Sim' && $dt_vence > $dt_atual && $pessoa->{'Declaro ter lido e estar de acordo com os termos e condições de uso do Banco de Talentos da ARB.'} == 'Sim' ) : ?>
 		<div class="col-md-12 col-lg-4 mb-5">
 			<div class="card h-100">
 			  <div class="card-body">
