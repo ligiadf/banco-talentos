@@ -19,7 +19,7 @@
 <body>
 
 <?php
-	$url = 'data.json'; // path to your JSON file
+	$url = 'dados.json'; // path to your JSON file
 	$data = file_get_contents($url); // put the contents of the file into a variable
 	$pessoas = json_decode($data); // decode the JSON feed
 
@@ -42,7 +42,7 @@
 	  <div class="collapse navbar-collapse" id="navbarResponsive">
 		<ul class="navbar-nav ml-auto">
 		  <li class="nav-item">
-			<a class="nav-link" href="">Lorem ipsum</a>
+			<a class="nav-link" href="/banco-talentos/termos-uso.php">Termos e condições de uso</a>
 		  </li>
 		  <li class="nav-item">
 			<a class="nav-link" href="">Lorem ipsum</a>
@@ -91,7 +91,7 @@
 
 	<div class="row">
 		<div class="col-12 mt-2 mb-3">
-			<h2 id="filtrar">Habilidades</h2>
+			<h2 id="filtrar">Como consultar o Banco de Talentos?</h2>
 		</div>
 
 		<form class="form-inline col-12" action="/banco-talentos#filtrar" method="GET">
@@ -104,25 +104,34 @@
 
 	<div class="row">
 		<div class="col-12 mt-4 mb-3">
-			<h2 id="lista">Profissionais <small class="h5"><a href="/banco-talentos#lista" class="text-info">Exibir todos</a></small></h2>
+			<h2 id="lista">Profissionais cadastrados <small class="h5"><a href="/banco-talentos#lista" class="text-info">Exibir todos</a></small></h2>
+			<p>Os profissionais são responsáveis pelas informações divulgadas.</p>
 		</div>
 
 	<?php foreach ($pessoas as $pessoa) : ?>
 
 	<?php
-		$habilidade = $pessoa->habilidades;
+		$habilidade = $pessoa->{'Habilidades'};
 		$habilidade = explode(", ", $habilidade); // valores para array = lista no card
 		$habilidades = implode(", ", $habilidade); // valores para string = filtro
 	?>
 
-	<?php
-	// Escolha do campo de busca:
-	if ( stripos($habilidades, $filtro) !== FALSE && $pessoa->associado == 'Sim' ) : ?>
+	<?php 
+	if ( stripos($habilidades, $filtro) !== FALSE && $pessoa->{'Associado em dia?'} == 'Sim' || $pessoa->{'Associado em dia?'} == 'sim' && $pessoa->{'Declaro ter lido e estar de acordo com os termos e condições de uso do Banco de Talentos da ARB.'} == 'Sim' ) : ?>
 		<div class="col-md-12 col-lg-4 mb-5">
 			<div class="card h-100">
 			  <div class="card-body">
-				<h5 class="card-title"><?php echo $pessoa->nome; ?> <small class="h6 text-muted"><?php echo $pessoa->conselho; ?></small></h5>
-				<h6 class="card-subtitle mb-2 text-muted"><?php echo $pessoa->descricao; ?></h6>
+				<h4 class="card-title text-info mb-1"><?php echo $pessoa->{'Nome completo'}; ?></h4>
+				<h6 class="mt-2 mb-3">
+					<small class="text-muted">
+						<?php echo $pessoa->{'Categoria'}; ?>
+						<?php if ( $pessoa->{'Categoria'} == 'Bibliotecário' ): 
+							 echo $pessoa->{'Registro no Conselho'}; 
+						endif; ?>
+						
+					</small>
+				</h6>
+				<h6 class="card-subtitle mb-2"><?php echo $pessoa->{'Descrição'}; ?></h6>
 				<p class="card-text">
 					<small><ul class="list-inline">
 						<li>Habilidades:</li>
@@ -133,40 +142,44 @@
 				</p>
 			  </div>
 			  <div class="card-footer">
-					<?php if ($pessoa->cidade) : ?>
-						<p><i class="fas fa-map-marker-alt"></i> <?php echo $pessoa->cidade; ?></p>
+					<?php if ($pessoa->{'Cidade'}) : ?>
+						<p><i class="fas fa-map-marker-alt"></i> <?php echo $pessoa->{'Cidade'}; ?></p>
 					<?php endif; ?>
-					<?php if ($pessoa->telefone) : ?>
-						<p><i class="fas fa-phone"></i> <?php echo $pessoa->telefone; ?></p>
+					<?php if ($pessoa->{'Disponível para trabalhar em outra localidade'} == 'Sim') : ?>
+						<p><i class="fas fa-route"></i> Disponível para trabalhar em outra localidade</p>
 					<?php endif; ?>
-					<?php if ($pessoa->email) : ?>
-						<p><i class="fas fa-email"></i> <?php echo $pessoa->email; ?></p>
+					<?php if ($pessoa->{'Telefone'}) : ?>
+						<p><i class="fas fa-phone"></i> <?php echo $pessoa->{'Telefone'}; ?></p>
+					<?php endif; ?>
+					<?php if ($pessoa->{'E-mail'}) : ?>
+						<p><i class="fas fa-email"></i> <?php echo $pessoa->{'E-mail'}; ?></p>
 					<?php endif; ?>
 					<ul class="list-unstyled list-inline">
-						<?php if ($pessoa->facebook) : ?>
-							 <li class="list-inline-item"><a class="card-link" href="<?php echo $pessoa->facebook; ?>"><i class="fab fa-facebook"></i> Facebook</a></li>
+						<?php if ($pessoa->{'Facebook'}) : ?>
+							 <li class="list-inline-item"><a class="card-link" href="<?php echo $pessoa->{'Facebook'}; ?>"><i class="fab fa-facebook"></i> Facebook</a></li>
 						<?php endif; ?>
-						<?php if ($pessoa->twitter) : ?>
-							 <li class="list-inline-item"><a class="card-link" href="<?php echo $pessoa->twitter; ?>"><i class="fab fa-twitter"></i> Twitter</a></li>
+						<?php if ($pessoa->{'Twitter'}) : ?>
+							 <li class="list-inline-item"><a class="card-link" href="<?php echo $pessoa->{'Twitter'}; ?>"><i class="fab fa-twitter"></i> Twitter</a></li>
 						<?php endif; ?>
-						<?php if ($pessoa->linkedin) : ?>
-							 <li class="list-inline-item"><a class="card-link" href="<?php echo $pessoa->linkedin; ?>"><i class="fab fa-linkedin"></i> LinkedIn</a></li>
+						<?php if ($pessoa->{'LinkedIn'}) : ?>
+							 <li class="list-inline-item"><a class="card-link" href="<?php echo $pessoa->{'LinkedIn'}; ?>"><i class="fab fa-linkedin"></i> LinkedIn</a></li>
 						<?php endif; ?>
-						<?php if ($pessoa->lattes) : ?>
-							 <li class="list-inline-item"><a class="card-link" href="<?php echo $pessoa->lattes; ?>"><i class="fas fa-file-alt"></i> Currículo Lattes</a></li>
+						<?php if ($pessoa->{'Currículo Lattes'}) : ?>
+							 <li class="list-inline-item"><a class="card-link" href="<?php echo $pessoa->{'Currículo Lattes'}; ?>"><i class="fas fa-file-alt"></i> Currículo Lattes</a></li>
 						<?php endif; ?>
-						<?php if ($pessoa->site) : ?>
-							 <li class="list-inline-item"><a class="card-link" href="<?php echo $pessoa->site; ?>"><i class="fas fa-link"></i> Site</a></li>
+						<?php if ($pessoa->{'Site'}) : ?>
+							 <li class="list-inline-item"><a class="card-link" href="<?php echo $pessoa->{'Site'}; ?>"><i class="fas fa-link"></i> Site</a></li>
 						<?php endif; ?>
-						<?php if ($pessoa->blog) : ?>
-							 <li class="list-inline-item"><a class="card-link" href="<?php echo $pessoa->blog; ?>"><i class="fas fa-link"></i> Blog</a></li>
+						<?php if ($pessoa->{'Blog'}) : ?>
+							 <li class="list-inline-item"><a class="card-link" href="<?php echo $pessoa->{'Blog'}; ?>"><i class="fas fa-link"></i> Blog</a></li>
 						<?php endif; ?>
 					</ul>
 			  </div>
 			</div>
 		  </div>
 		  <?php endif; ?><!-- filtro -->
-	<?php endforeach; ?><!-- pessoa -->
+	<?php //endforeach; ?><!-- habilidade para filtro -->
+<?php endforeach; ?><!-- pessoa -->
 	</div><!-- /.row -->
 
   </div>
@@ -176,7 +189,7 @@
   <footer class="py-5 bg-dark">
 	<div class="container">
 	  <p class="m-0 text-center text-white">Banco de talentos</p>
-	  <p class="m-0 text-center text-white">Desenvolvido por <a class="text-warning" href="http://lfreitas.info" title="Acesse o site de LFreitas">LFreitas</a> &ndash; Licença MIT CC BY-NC 4.0.</p>
+	  <p class="m-0 text-center text-white">Desenvolvido por <a class="text-white" href="https://lfreitas.info" title="Acesse o site de LFreitas">LFreitas</a> &ndash; Licença MIT CC BY-NC 4.0.</p>
 	  <p class="m-0 text-center text-white">Tema <a class="text-warning" href="https://startbootstrap.com/templates/business-frontpage/">Business Frontpage</a> por Start Bootstrap.</p>
 	</div>
 	<!-- /.container -->
